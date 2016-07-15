@@ -43,5 +43,11 @@ namespace AutoService.Models
             Transmission = transmission;
             Client = client;
         }
+        public Car(string mark, string model, int power)
+        {
+            Mark = mark;
+            Model = model;
+            Power = power;
+        }
     }
 }

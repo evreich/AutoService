@@ -9,12 +9,10 @@ namespace AutoService.Models
     [Serializable]
     public class Order
     {
-        [NonSerialized]
-        private int id;
-        public int Id { get { return id; } set { id = value; } }
+        public int Id { get; set; }
         public int Price { get; set; }
         public DateTime TimeBegin { get; set; }
-        public DateTime TimeEnd { get; set; }
+        public DateTime? TimeEnd { get; set; }
 
         [NonSerialized]
         private int carId;
@@ -26,7 +24,7 @@ namespace AutoService.Models
         {
             Works = new List<Work>();
         }
-        public Order(int id, int price, DateTime timebegin, DateTime timeend, Car car, List<Work> works)
+        public Order(int id, int price, DateTime timebegin, DateTime? timeend, Car car, List<Work> works)
         {
             Id = id;
             Price = price;
