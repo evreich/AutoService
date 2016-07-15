@@ -3,6 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            <Setter Property="Control.Margin" Value="20 8 20 8" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Height" Value="30" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Control.Margin" Value="0 8 20 8" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="30" />
+        </Style>
+        <Style x:Key="ColumnHeader" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding}"></TextBlock>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>

@@ -9,28 +9,32 @@ namespace AutoService.Models
     [Serializable]
     public class Client
     {
-        [NonSerialized] 
-        public int Id { get; set; }
+        [NonSerialized]
+        private int id;
+        public int Id { get { return id; } set { id = value;} }
         public string Surname { get; set; }
         public string Name { get; set; }
         public string Midname { get; set; }
         public int Year { get; set; }
         public string Phone { get; set; }
-        public virtual ICollection<Car> Cars { get; set; }
+
+        [NonSerialized]
+        private ICollection<Car> cars;
+        public virtual ICollection<Car> Cars { get { return cars; } set { cars = value; } }
 
         public Client()
         {
             Cars = new List<Car>();
         }
 
-        public Client(string surname, string name, string midname, int year, string phone, List<Car> cars)
+        public Client(string surname, string name, string midname, int year, string phone)
         {
             Surname = surname;
             Name = name;
             Midname = midname;
             Year = year;
             Phone = phone;
-            Cars = cars;
+            Cars = new List<Car>();
         }
     }
 }

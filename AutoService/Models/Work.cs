@@ -10,12 +10,14 @@ namespace AutoService.Models
     public class Work
     {
         [NonSerialized]
-        public int Id { get; set; }
+        private int id;
+        public int Id { get { return id; } set { id = value; } }
         public string Title { get; set; }
         public int Price { get; set; }
         public int Runtime { get; set; }
         [NonSerialized]
-        public virtual ICollection<Order> Orders { get; set; }
+        private ICollection<Order> orders;
+        public virtual ICollection<Order> Orders { get { return orders; } set { orders = value;} }
 
         public Work()
         {
@@ -28,6 +30,11 @@ namespace AutoService.Models
             Price = price;
             Runtime = runtime;
             Orders = new List<Order>();
+        }
+
+        public override string ToString()
+        {
+            return Title;
         }
     }
 }

@@ -10,14 +10,15 @@ namespace AutoService.Models
     {
         Mechanical,
         Automatic,
-        Robotize
+        Robotized
     } 
 
     [Serializable]
     public class Car
     {
         [NonSerialized]
-        public int Id { get; set; }
+        private int id;
+        public int Id { get { return id; } set { id = value; } }
         public string Mark { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }
@@ -25,21 +26,22 @@ namespace AutoService.Models
         public TypesOfTransmission Transmission { get; set; }
 
         [NonSerialized]
-        public int ClientId { get; set; }
-        [NonSerialized]
+        private int clientId;
+        public int ClientId { get { return clientId; } set { clientId = value; } }
         public virtual Client Client { get; set; }
 
         public Car()
         {
         }
 
-        public Car(string mark, string model, int year, int power, TypesOfTransmission transmission)
+        public Car(string mark, string model, int year, int power, TypesOfTransmission transmission, Client client)
         {
             Mark = mark;
             Model = model;
             Year = year;
             Power = power;
             Transmission = transmission;
+            Client = client;
         }
     }
 }
