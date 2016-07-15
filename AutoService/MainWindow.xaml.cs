@@ -23,12 +23,14 @@ namespace AutoService
     public partial class MainWindow : Window
     {
         BinaryHandler BinHandler;
+        XMLHandler XMLHandler;
         public MainWindow()
         {
             InitializeComponent();
             SourceData.ItemsSource = new string[] { "MySQL", "MongoDB", "AutoServiceData.xml", "AutoServiceData.dat" };
 
             BinHandler = new BinaryHandler();
+            XMLHandler = new XMLHandler(); 
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -40,6 +42,7 @@ namespace AutoService
                 case 1:
                     break;
                 case 2:
+                    OrdersGrid.ItemsSource = XMLHandler.LoadOrders();
                     break;
                 case 3:
                     OrdersGrid.ItemsSource = BinHandler.LoadOrders();

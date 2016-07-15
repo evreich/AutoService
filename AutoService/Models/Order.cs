@@ -18,7 +18,7 @@ namespace AutoService.Models
         private int carId;
         public int CarId { get { return carId;} set { carId = value;} }
         public virtual Car Car { get; set; }
-        public virtual ICollection<Work> Works { get; set; }
+        public virtual List<Work> Works { get; set; }
 
         public Order()
         {

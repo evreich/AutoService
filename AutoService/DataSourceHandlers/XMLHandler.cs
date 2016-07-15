@@ -4,38 +4,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Serialization;
 
 namespace AutoService.DataSourceHandlers
 {
-    [Serializable]
-    public class SerializeData
+    class XMLHandler
     {
-        public List<Client> Clients { get; set; }
-        public List<Order> Orders { get; set; }
+        XmlSerializer formatter;
 
-        public SerializeData(List<Client> clients, List<Order> orders)
+        public XMLHandler()
         {
-            Clients = clients;
-            Orders = orders;
-        }
-        public SerializeData()
-        {
-        }
-    }
+            formatter = new XmlSerializer(typeof(SerializeData));
 
-    class BinaryHandler
-    {
-        BinaryFormatter formatter;
-
-        public BinaryHandler()
-        {
-            formatter = new BinaryFormatter();
-
-            if (!File.Exists("AutoServiceData.dat"))
+            if (!File.Exists("AutoServiceData.xml"))
                 CreateFullFile();
         }
 
@@ -44,7 +28,7 @@ namespace AutoService.DataSourceHandlers
             List<Client> Clients = ObjectsBuilder.GenerateClients(30);
             List<Order> Orders = ObjectsBuilder.GenerateOrders(50, Clients);
             SerializeData SerializeData = new SerializeData(Clients, Orders);
-            using (FileStream fs = new FileStream("AutoServiceData.dat", FileMode.Create))
+            using (FileStream fs = new FileStream("AutoServiceData.xml", FileMode.Create))
             {
                 try
                 {
@@ -60,7 +44,7 @@ namespace AutoService.DataSourceHandlers
 
         private SerializeData LoadDataFromFiles()
         {
-            using (FileStream fs = new FileStream("AutoServiceData.dat", FileMode.Open))
+            using (FileStream fs = new FileStream("AutoServiceData.xml", FileMode.Open))
             {
                 try
                 {
@@ -76,11 +60,11 @@ namespace AutoService.DataSourceHandlers
 
         public List<Order> LoadOrders()
         {
-            if (File.Exists("AutoServiceData.dat"))
+            if (File.Exists("AutoServiceData.xml"))
                 return LoadDataFromFiles().Orders;
             else
             {
-                MessageBoxResult result = MessageBox.Show("Запрашиваемый источник данных не существует. Хотите ли сгенерировать новый файл AutoServiceData.dat?", "Ошибка открытия файла", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                MessageBoxResult result = MessageBox.Show("Запрашиваемый источник данных не существует. Хотите ли сгенерировать новый файл AutoServiceData.xml?", "Ошибка открытия файла", MessageBoxButton.YesNo, MessageBoxImage.Error);
                 if (result == MessageBoxResult.Yes)
                 {
                     CreateFullFile();

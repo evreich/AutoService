@@ -16,8 +16,8 @@ namespace AutoService.Models
         public int Price { get; set; }
         public int Runtime { get; set; }
         [NonSerialized]
-        private ICollection<Order> orders;
-        public virtual ICollection<Order> Orders { get { return orders; } set { orders = value;} }
+        private List<Order> orders;
+        public virtual List<Order> Orders { get { return orders; } set { orders = value;} }
 
         public Work()
         {

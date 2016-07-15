@@ -19,8 +19,8 @@ namespace AutoService.Models
         public string Phone { get; set; }
 
         [NonSerialized]
-        private ICollection<Car> cars;
-        public virtual ICollection<Car> Cars { get { return cars; } set { cars = value; } }
+        private List<Car> cars;
+        public virtual List<Car> Cars { get { return cars; } set { cars = value; } }
 
         public Client()
         {
