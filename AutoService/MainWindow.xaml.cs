@@ -1,4 +1,5 @@
-﻿using AutoService.DataSourceHandlers;
+﻿using AutoService.DataSourceContext;
+using AutoService.DataSourceHandlers;
 using AutoService.Models;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,15 @@ namespace AutoService
     {
         BinaryHandler BinHandler;
         XMLHandler XMLHandler;
+        AutoServiceContext MySQLDatabase;
         public MainWindow()
         {
             InitializeComponent();
             SourceData.ItemsSource = new string[] { "MySQL", "MongoDB", "AutoServiceData.xml", "AutoServiceData.dat" };
 
             BinHandler = new BinaryHandler();
-            XMLHandler = new XMLHandler(); 
+            XMLHandler = new XMLHandler();
+            MySQLDatabase = new AutoServiceContext();
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -38,6 +41,7 @@ namespace AutoService
             switch (SourceData.SelectedIndex)
             {
                 case 0:
+                    OrdersGrid.ItemsSource = MySQLDatabase.Orders.Local.ToList();
                     break;
                 case 1:
                     break;
@@ -50,6 +54,11 @@ namespace AutoService
                 default:
                     break;
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MySQLDatabase.Dispose();
         }
     }
 }

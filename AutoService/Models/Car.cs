@@ -30,6 +30,10 @@ namespace AutoService.Models
         public int ClientId { get { return clientId; } set { clientId = value; } }
         public virtual Client Client { get; set; }
 
+        [NonSerialized]
+        private List<Order> orders;
+        public virtual List<Order> Orders { get { return orders; } set { orders = value; } }
+
         public Car()
         {
         }

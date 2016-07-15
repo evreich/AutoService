@@ -102,8 +102,8 @@ namespace AutoService
                 PriceWorks+= Works[i].Price;
             }
             int Price = PriceWorks;
-            DateTime TimeBegin = (DateTime)GenerateDateTime(new DateTime(2016, 6, 1), new DateTime(2016, 6, 30), random);
-            DateTime? TimeEnd = GenerateDateTime(TimeBegin, new DateTime(2016, 6, 30), random);
+            DateTime TimeBegin = (DateTime)GenerateDateTime(new DateTime(2016, 7, 1), new DateTime(2016, 7, 15), random);
+            DateTime? TimeEnd = GenerateDateTime(TimeBegin, new DateTime(2016, 7, 15), random);
             Car Car = GenerateCar(client, random);
             return new Order(id, Price, TimeBegin, TimeEnd, Car, Works);
         }
