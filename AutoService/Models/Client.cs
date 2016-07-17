@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,7 @@ namespace AutoService.Models
     {
         [NonSerialized]
         private int id;
+        [BsonId]
         public int Id { get { return id; } set { id = value;} }
         public string Surname { get; set; }
         public string Name { get; set; }
@@ -19,7 +22,9 @@ namespace AutoService.Models
         public string Phone { get; set; }
 
         [NonSerialized]
+        [BsonIgnore]
         private List<Car> cars;
+        [BsonIgnore]
         public virtual List<Car> Cars { get { return cars; } set { cars = value; } }
 
         public Client()

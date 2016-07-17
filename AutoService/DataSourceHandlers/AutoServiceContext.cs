@@ -12,12 +12,15 @@ namespace AutoService.DataSourceContext
     {
         public AutoServiceContext() : base("MySQLConnection")
         {
+            CheckDb();
+        }
+
+        private void CheckDb()
+        {
             if ((this.Orders.ToList().Count < 50) || (this.Clients.ToList().Count < 30))
             {
-                this.Database.Delete(); 
-                List<Client> Clients = ObjectsBuilder.GenerateClients(30);
-                this.Clients.AddRange(Clients);
-                this.Orders.AddRange(ObjectsBuilder.GenerateOrders(50, Clients));
+                this.Orders.RemoveRange(this.Orders);
+                this.Orders.AddRange(ObjectsBuilder.GenerateOrders(50, ObjectsBuilder.GenerateClients(30)));
                 this.SaveChanges();
             }
         }

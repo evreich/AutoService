@@ -26,6 +26,7 @@ namespace AutoService
         BinaryHandler BinHandler;
         XMLHandler XMLHandler;
         AutoServiceContext MySQLDatabase;
+        MongoDbHandler MongoDbHandler;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,9 +35,10 @@ namespace AutoService
             BinHandler = new BinaryHandler();
             XMLHandler = new XMLHandler();
             MySQLDatabase = new AutoServiceContext();
+            MongoDbHandler = new MongoDbHandler();
         }
 
-        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        private async void LoadButton_Click(object sender, RoutedEventArgs e)
         {
             switch (SourceData.SelectedIndex)
             {
@@ -44,6 +46,8 @@ namespace AutoService
                     OrdersGrid.ItemsSource = MySQLDatabase.Orders.Local.ToList();
                     break;
                 case 1:
+                    List<Order> Orders = await MongoDbHandler.LoadDocs();
+                    OrdersGrid.ItemsSource = Orders;
                     break;
                 case 2:
                     OrdersGrid.ItemsSource = XMLHandler.LoadOrders();

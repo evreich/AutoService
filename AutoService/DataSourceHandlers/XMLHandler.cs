@@ -17,7 +17,7 @@ namespace AutoService.DataSourceHandlers
 
         public XMLHandler()
         {
-            formatter = new XmlSerializer(typeof(SerializeData));
+            formatter = new XmlSerializer(typeof(List<Order>));
 
             if (!File.Exists("AutoServiceData.xml"))
                 CreateFullFile();
@@ -25,14 +25,12 @@ namespace AutoService.DataSourceHandlers
 
         private void CreateFullFile()
         {
-            List<Client> Clients = ObjectsBuilder.GenerateClients(30);
-            List<Order> Orders = ObjectsBuilder.GenerateOrders(50, Clients);
-            SerializeData SerializeData = new SerializeData(Clients, Orders);
+            List<Order> Orders = ObjectsBuilder.GenerateOrders(50, ObjectsBuilder.GenerateClients(30));
             using (FileStream fs = new FileStream("AutoServiceData.xml", FileMode.Create))
             {
                 try
                 {
-                    formatter.Serialize(fs, SerializeData);
+                    formatter.Serialize(fs, Orders);
                 }
                 catch (SerializationException e)
                 {
@@ -42,13 +40,13 @@ namespace AutoService.DataSourceHandlers
             }
         }
 
-        private SerializeData LoadDataFromFiles()
+        private List<Order> LoadDataFromFiles()
         {
             using (FileStream fs = new FileStream("AutoServiceData.xml", FileMode.Open))
             {
                 try
                 {
-                    return (SerializeData)formatter.Deserialize(fs);
+                    return (List<Order>)formatter.Deserialize(fs);
                 }
                 catch (SerializationException e)
                 {
@@ -61,14 +59,14 @@ namespace AutoService.DataSourceHandlers
         public List<Order> LoadOrders()
         {
             if (File.Exists("AutoServiceData.xml"))
-                return LoadDataFromFiles().Orders;
+                return LoadDataFromFiles();
             else
             {
                 MessageBoxResult result = MessageBox.Show("Запрашиваемый источник данных не существует. Хотите ли сгенерировать новый файл AutoServiceData.xml?", "Ошибка открытия файла", MessageBoxButton.YesNo, MessageBoxImage.Error);
                 if (result == MessageBoxResult.Yes)
                 {
                     CreateFullFile();
-                    return LoadDataFromFiles().Orders;
+                    return LoadDataFromFiles();
                 }
                 else
                     return null;

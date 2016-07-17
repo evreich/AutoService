@@ -11,21 +11,6 @@ using System.Windows;
 
 namespace AutoService.DataSourceHandlers
 {
-    [Serializable]
-    public class SerializeData
-    {
-        public List<Client> Clients { get; set; }
-        public List<Order> Orders { get; set; }
-
-        public SerializeData(List<Client> clients, List<Order> orders)
-        {
-            Clients = clients;
-            Orders = orders;
-        }
-        public SerializeData()
-        {
-        }
-    }
 
     class BinaryHandler
     {
@@ -41,14 +26,12 @@ namespace AutoService.DataSourceHandlers
 
         private void CreateFullFile()
         {
-            List<Client> Clients = ObjectsBuilder.GenerateClients(30);
-            List<Order> Orders = ObjectsBuilder.GenerateOrders(50, Clients);
-            SerializeData SerializeData = new SerializeData(Clients, Orders);
+            List<Order> Orders = ObjectsBuilder.GenerateOrders(50, ObjectsBuilder.GenerateClients(30));
             using (FileStream fs = new FileStream("AutoServiceData.dat", FileMode.Create))
             {
                 try
                 {
-                    formatter.Serialize(fs, SerializeData);
+                    formatter.Serialize(fs, Orders);
                 }
                 catch (SerializationException e)
                 {
@@ -58,13 +41,13 @@ namespace AutoService.DataSourceHandlers
             }
         }
 
-        private SerializeData LoadDataFromFiles()
+        private List<Order> LoadDataFromFiles()
         {
             using (FileStream fs = new FileStream("AutoServiceData.dat", FileMode.Open))
             {
                 try
                 {
-                    return (SerializeData)formatter.Deserialize(fs);
+                    return (List<Order>)formatter.Deserialize(fs);
                 }
                 catch (SerializationException e)
                 {
@@ -77,14 +60,14 @@ namespace AutoService.DataSourceHandlers
         public List<Order> LoadOrders()
         {
             if (File.Exists("AutoServiceData.dat"))
-                return LoadDataFromFiles().Orders;
+                return LoadDataFromFiles();
             else
             {
                 MessageBoxResult result = MessageBox.Show("Запрашиваемый источник данных не существует. Хотите ли сгенерировать новый файл AutoServiceData.dat?", "Ошибка открытия файла", MessageBoxButton.YesNo, MessageBoxImage.Error);
                 if (result == MessageBoxResult.Yes)
                 {
                     CreateFullFile();
-                    return LoadDataFromFiles().Orders;
+                    return LoadDataFromFiles();
                 }
                 else
                     return null;
