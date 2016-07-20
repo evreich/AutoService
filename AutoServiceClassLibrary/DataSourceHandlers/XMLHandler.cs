@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
+using System.Windows.Forms;
 
 namespace AutoService.DataSourceHandlers
 {
-    class XMLHandler
+    public class XMLHandler
     {
         XmlSerializer formatter;
 
@@ -62,8 +63,8 @@ namespace AutoService.DataSourceHandlers
                 return LoadDataFromFiles();
             else
             {
-                MessageBoxResult result = MessageBox.Show("Запрашиваемый источник данных не существует. Хотите ли сгенерировать новый файл AutoServiceData.xml?", "Ошибка открытия файла", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                if (result == MessageBoxResult.Yes)
+                DialogResult result = MessageBox.Show("Запрашиваемый источник данных не существует. Хотите ли сгенерировать новый файл AutoServiceData.xml?", "Ошибка открытия файла", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
                 {
                     CreateFullFile();
                     return LoadDataFromFiles();

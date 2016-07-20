@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoService", "AutoService\AutoService.csproj", "{A591C4B3-6A11-46C9-8F6C-15F88162EC5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoService_Shell", "AutoService\AutoService_Shell.csproj", "{A591C4B3-6A11-46C9-8F6C-15F88162EC5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoService_DataClassLibrary", "AutoServiceClassLibrary\AutoService_DataClassLibrary.csproj", "{2D4DBA3E-8809-4930-B807-41B4A5BD3669}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A591C4B3-6A11-46C9-8F6C-15F88162EC5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A591C4B3-6A11-46C9-8F6C-15F88162EC5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A591C4B3-6A11-46C9-8F6C-15F88162EC5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D4DBA3E-8809-4930-B807-41B4A5BD3669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4DBA3E-8809-4930-B807-41B4A5BD3669}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4DBA3E-8809-4930-B807-41B4A5BD3669}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4DBA3E-8809-4930-B807-41B4A5BD3669}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

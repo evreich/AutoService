@@ -91,16 +91,25 @@ namespace AutoService
             return Car;
         }
 
-        private static Order GenerateOrder(int id, Client client, Random random)
+        private static List<Work> GenerateWorks(Random random, out int PriceWorks)
         {
             List<Work> Works = new List<Work>();
-            int CountWorks = random.Next(1,OrderWorks.Length+1);
-            int PriceWorks = 0;
-            for(int i=0; i<CountWorks; i++)
+            PriceWorks = 0;
+            List<Work> orderWorks = OrderWorks.ToList<Work>();
+            int CountWorks = random.Next(1, orderWorks.Count + 1);
+            for (int i = 0; i < CountWorks; i++)
             {
-                Works.Add(OrderWorks[random.Next(0,OrderWorks.Length)]);
-                PriceWorks+= Works[i].Price;
+                int Index = random.Next(0, orderWorks.Count);
+                Works.Add(orderWorks[Index]);
+                orderWorks.RemoveAt(Index);
+                PriceWorks += Works[i].Price;
             }
+            return Works;
+        }
+        private static Order GenerateOrder(int id, Client client, Random random)
+        {
+            int PriceWorks;
+            List<Work> Works = GenerateWorks(random, out PriceWorks);
             int Price = PriceWorks;
             DateTime TimeBegin = (DateTime)GenerateDateTime(new DateTime(2016, 7, 1), new DateTime(2016, 7, 15), random);
             DateTime? TimeEnd = GenerateDateTime(TimeBegin, new DateTime(2016, 7, 15), random);

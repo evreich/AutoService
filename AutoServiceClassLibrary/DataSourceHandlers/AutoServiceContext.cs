@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AutoService.DataSourceContext
 {
-    class AutoServiceContext : DbContext
+    public class AutoServiceContext : DbContext
     {
         public AutoServiceContext() : base("MySQLConnection")
         {

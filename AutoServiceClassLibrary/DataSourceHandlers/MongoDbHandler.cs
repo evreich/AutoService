@@ -11,7 +11,7 @@ using AutoService.Models;
 
 namespace AutoService.DataSourceHandlers
 {
-    class MongoDbHandler
+    public class MongoDbHandler
     {
         MongoClient Client;
         IMongoDatabase Database;
