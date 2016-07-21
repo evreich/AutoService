@@ -12,13 +12,18 @@ using System.Windows.Forms;
 
 namespace AutoService.DataSourceHandlers
 {
-    public class XMLHandler
+    public interface ISerializer
+    {
+        List<Order> LoadOrders();
+    }
+
+    public class XMLHandler : ISerializer
     {
         XmlSerializer formatter;
 
-        public XMLHandler()
+        public XMLHandler(XmlSerializer formatter)
         {
-            formatter = new XmlSerializer(typeof(List<Order>));
+            this.formatter = formatter;
 
             if (!File.Exists("AutoServiceData.xml"))
                 CreateFullFile();

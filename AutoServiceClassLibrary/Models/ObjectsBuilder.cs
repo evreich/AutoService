@@ -72,7 +72,8 @@ namespace AutoService
 
         private static Car GenerateCar(Client client, Random random)
         {
-            Car Car = Cars[random.Next(0, Cars.Length)];
+            Car Car = new Car();
+            Car.Copy(Cars[random.Next(0, Cars.Length)]);
             Car.Year = random.Next(2005, DateTime.Now.Year);
             int TypeTransmission = random.Next(0,3);
             switch (TypeTransmission)
@@ -123,12 +124,24 @@ namespace AutoService
             {
                 throw new Exception("Параметр \"count\" должен быть больше нуля");
             }
+            if (count < clients.Count)
+            {
+                throw new Exception("Параметр \"count\" должен быть больше кол-ва объектов \"clients\"");
+            }
             List<Order> Orders = new List<Order>();
             Random random = new Random();
-            for (int i = 0; i < count; i++)
+            int i;
+            StringBuilder str = new StringBuilder();
+            for (i = 0; i < clients.Count; i++)
+            {
+                Orders.Add(GenerateOrder(i + 1, clients[i], random));
+                str.Append(i+". "+Orders[i].Car.Client.Surname+"/"+ clients[i].Surname+"/"+Orders[i].Car.Mark+"/"+Orders[i].Id+". ");
+            }
+            for (; i < count; i++)
             {
                 Client Client = clients[random.Next(0, clients.Count)];
-                Orders.Add(GenerateOrder(i+1,Client, random));
+                Orders.Add(GenerateOrder(i + 1, Client, random));
+                str.Append(i + ". " + Orders[i].Car.Client.Surname+ "/"+Orders[i].Car.Mark+"/"+Orders[i].Id+". ");
             }
             return Orders;
         }

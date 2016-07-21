@@ -14,13 +14,13 @@ using System.Windows.Forms;
 namespace AutoService.DataSourceHandlers
 {
 
-    public class BinaryHandler
+    public class BinaryHandler : ISerializer
     {
         BinaryFormatter formatter;
 
-        public BinaryHandler()
+        public BinaryHandler(BinaryFormatter formatter)
         {
-            formatter = new BinaryFormatter();
+            this.formatter = formatter;
 
             if (!File.Exists("AutoServiceData.dat"))
                 CreateFullFile();

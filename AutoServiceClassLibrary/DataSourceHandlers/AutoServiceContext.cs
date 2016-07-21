@@ -20,6 +20,9 @@ namespace AutoService.DataSourceContext
             if ((this.Orders.ToList().Count < 50) || (this.Clients.ToList().Count < 30))
             {
                 this.Orders.RemoveRange(this.Orders);
+                this.Clients.RemoveRange(this.Clients);
+                this.Works.RemoveRange(this.Works);
+                this.Cars.RemoveRange(this.Cars);
                 this.Orders.AddRange(ObjectsBuilder.GenerateOrders(50, ObjectsBuilder.GenerateClients(30)));
                 this.SaveChanges();
             }

@@ -60,5 +60,14 @@ namespace AutoService.Models
             Model = model;
             Power = power;
         }
+
+        public void Copy(Car car)
+        {
+            Id = car.Id;
+            Mark = car.Mark;
+            Model = car.Model;
+            Power = car.Power;
+            Year = car.Year;
+        }
     }
 }

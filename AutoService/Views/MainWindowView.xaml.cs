@@ -23,6 +23,7 @@ namespace AutoService
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
+            ObjectsBuilder.GenerateOrders(50,ObjectsBuilder.GenerateClients(30));
         }
     }
 }

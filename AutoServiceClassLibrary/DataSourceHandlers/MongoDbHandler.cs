@@ -17,9 +17,9 @@ namespace AutoService.DataSourceHandlers
         IMongoDatabase Database;
         IMongoCollection<Order> Orders;
 
-        public MongoDbHandler()
+        public MongoDbHandler(MongoClient Client)
         {
-            Client = new MongoClient(ConfigurationManager.ConnectionStrings["MongoDbConnection"].ConnectionString);
+            this.Client = Client;
             Database = Client.GetDatabase("dbAutoService");
             Orders = Database.GetCollection<Order>("Orders");
             CheckDb();
