@@ -1,4 +1,5 @@
 ﻿using AutoService.Models;
+using AutoServiceClassLibrary.DataSourceHandlers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +27,7 @@ namespace AutoService.DataSourceHandlers
                 CreateFullFile();
         }
 
-        private void CreateFullFile()
+        public void CreateFullFile()
         {
             List<Order> Orders = ObjectsBuilder.GenerateOrders(50, ObjectsBuilder.GenerateClients(30));
             using (FileStream fs = new FileStream("AutoServiceData.dat", FileMode.Create))
@@ -37,13 +38,13 @@ namespace AutoService.DataSourceHandlers
                 }
                 catch (SerializationException e)
                 {
-                    Console.WriteLine("Ошибка сериализации. Причина: " + e.Message);
+                    MessageBox.Show("Ошибка сериализации. Причина: " + e.Message);
                     throw;
                 }
             }
         }
 
-        private List<Order> LoadDataFromFiles()
+        public List<Order> LoadDataFromFiles()
         {
             using (FileStream fs = new FileStream("AutoServiceData.dat", FileMode.Open))
             {
@@ -53,7 +54,7 @@ namespace AutoService.DataSourceHandlers
                 }
                 catch (SerializationException e)
                 {
-                    Console.WriteLine("Ошибка десериализации. Причина: " + e.Message);
+                    MessageBox.Show("Ошибка десериализации. Причина: " + e.Message);
                     throw;
                 }
             }

@@ -9,14 +9,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
 using System.Windows.Forms;
+using AutoServiceClassLibrary.DataSourceHandlers;
 
 namespace AutoService.DataSourceHandlers
 {
-    public interface ISerializer
-    {
-        List<Order> LoadOrders();
-    }
-
     public class XMLHandler : ISerializer
     {
         XmlSerializer formatter;
@@ -29,7 +25,7 @@ namespace AutoService.DataSourceHandlers
                 CreateFullFile();
         }
 
-        private void CreateFullFile()
+        public void CreateFullFile()
         {
             List<Order> Orders = ObjectsBuilder.GenerateOrders(50, ObjectsBuilder.GenerateClients(30));
             using (FileStream fs = new FileStream("AutoServiceData.xml", FileMode.Create))
@@ -40,13 +36,13 @@ namespace AutoService.DataSourceHandlers
                 }
                 catch (SerializationException e)
                 {
-                    Console.WriteLine("Ошибка сериализации. Причина: " + e.Message);
+                    MessageBox.Show("Ошибка сериализации. Причина: " + e.Message);
                     throw;
                 }
             }
         }
 
-        private List<Order> LoadDataFromFiles()
+        public List<Order> LoadDataFromFiles()
         {
             using (FileStream fs = new FileStream("AutoServiceData.xml", FileMode.Open))
             {
@@ -56,7 +52,7 @@ namespace AutoService.DataSourceHandlers
                 }
                 catch (SerializationException e)
                 {
-                    Console.WriteLine("Ошибка десериализации. Причина: " + e.Message);
+                    MessageBox.Show("Ошибка десериализации. Причина: " + e.Message);
                     throw;
                 }
             }

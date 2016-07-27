@@ -93,9 +93,9 @@
   <ItemGroup>
     <Compile Include="DataSourceHandlers\AutoServiceContext.cs" />
     <Compile Include="DataSourceHandlers\BinaryHandler.cs" />
+    <Compile Include="DataSourceHandlers\ISerializer.cs" />
     <Compile Include="DataSourceHandlers\MongoDbHandler.cs" />
     <Compile Include="DataSourceHandlers\XMLHandler.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ObjectsBuilder.cs" />

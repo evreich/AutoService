@@ -15,6 +15,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using MongoDB.Driver;
 using System.Configuration;
+using AutoServiceClassLibrary.DataSourceHandlers;
 
 
 namespace AutoService.ViewModels
@@ -55,8 +56,7 @@ namespace AutoService.ViewModels
                 OnPropertyChanged("Container");
             }
         }
-        
-        MongoDbHandler MongoDbHandler;
+
         private UnityContainer Source;
 
         public MainWindowViewModel()
